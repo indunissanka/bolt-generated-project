@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cake Design Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f6;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .cake-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+    }
+    .cake-layer {
+      height: 30px;
+      width: 200px;
+      margin: 2px 0;
+    }
+    .tier {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px 0;
+    }
+    .details-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .details-table td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .details-table td:first-child {
+      font-weight: bold;
+      width: 30%;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <h1 style="color: #6d4c41; text-align: center;">Your Cake Design</h1>
+    
+    <!-- Cake Preview -->
+    <div class="cake-preview">
+      {{#if multiTier}}
+        {{#each tiers}}
+        <div class="tier">
+          {{#each layers}}
+          <div class="cake-layer" style="background-color: {{color}}; width: {{width}}px;"></div>
+          {{/each}}
+        </div>
+        {{/each}}
+      {{else}}
+        {{#each layers}}
+        <div class="cake-layer" style="background-color: {{color}};"></div>
+        {{/each}}
+      {{/if}}
+    </div>
+
+    <!-- Design Details -->
+    <table class="details-table">
+      <tr>
+        <td>Tier Type</td>
+        <td>{{tierType}}</td>
+      </tr>
+      {{#if multiTier}}
+      <tr>
+        <td>Number of Tiers</td>
+        <td>{{tierCount}}</td>
+      </tr>
+      {{/if}}
+      <tr>
+        <td>Number of Layers</td>
+        <td>{{layers.length}}</td>
+      </tr>
+      <tr>
+        <td>Layer Colors</td>
+        <td>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            {{#each layers}}
+            <li>Layer {{@index}}: <span style="color: {{color}};">{{color}}</span></li>
+            {{/each}}
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>Selected Toppings</td>
+        <td>
+          {{#if toppings.length}}
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              {{#each toppings}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+          {{else}}
+            No toppings selected
+          {{/if}}
+        </td>
+      </tr>
+    </table>
+
+    <div class="footer">
+      <p>Thank you for choosing The Cake Lounge!</p>
+      <p>36/3 Jambugasmulla Mawatha, Nugegoda 10250, Sri Lanka</p>
+      <p>Phone: +94 72 368 4367</p>
+    </div>
+  </div>
+</body>
+</html>

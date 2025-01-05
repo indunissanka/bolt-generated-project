@@ -1,0 +1,37 @@
+version: '3.8'
+
+    services:
+      app:
+        image: node:16
+        container_name: cake-customizer
+        working_dir: /app
+        volumes:
+          - .:/app
+        ports:
+          - "3000:3000"
+        environment:
+          - NODE_ENV=development
+        command: sh -c "npm install && npm run dev"
+        networks:
+          - cake-network
+
+      # Optional: Add a database service if needed
+      # db:
+      #   image: postgres:13
+      #   environment:
+      #     POSTGRES_USER: user
+      #     POSTGRES_PASSWORD: password
+      #     POSTGRES_DB: cakedb
+      #   ports:
+      #     - "5432:5432"
+      #   volumes:
+      #     - postgres_data:/var/lib/postgresql/data
+      #   networks:
+      #     - cake-network
+
+    networks:
+      cake-network:
+        driver: bridge
+
+    # volumes:
+    #   postgres_data:
